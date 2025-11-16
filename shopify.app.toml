@@ -1,0 +1,33 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "5cc429f4ec6ebf923ac747e5dbcf8d6f"
+name = "Blackcart"
+handle = "blackcart-tbyb"
+application_url = "https://shop-app.blackcart.com"
+embedded = true
+
+[build]
+include_config_on_deploy = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_cart_transforms,write_cart_transforms,write_checkouts,read_customer_payment_methods,read_customers,read_discounts,read_fulfillments,unauthenticated_read_metaobjects,read_metaobject_definitions,write_metaobject_definitions,read_metaobjects,write_metaobjects,read_orders,write_orders,read_payment_mandate,write_payment_mandate,read_payment_terms,write_payment_terms,read_price_rules,write_price_rules,read_products,write_products,unauthenticated_read_product_listings,read_product_listings,unauthenticated_read_product_tags,read_purchase_options,write_purchase_options,read_reports,write_reports,read_returns,write_returns,unauthenticated_read_selling_plans,read_themes,write_themes,read_order_edits,write_order_edits,write_merchant_managed_fulfillment_orders,write_third_party_fulfillment_orders"
+
+[auth]
+redirect_urls = [
+  "https://shop-app.blackcart.com/auth/callback",
+  "https://shop-app.blackcart.com/auth/shopify/callback",
+  "https://shop-app.blackcart.com/api/auth/callback",
+  "https://shop-app.blackcart.com/.shopify/graphiql/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-01"
+
+  [webhooks.privacy_compliance]
+  customer_deletion_url = "https://shop-app.blackcart.com/webhooks/customers_redact"
+  customer_data_request_url = "https://shop-app.blackcart.com/webhooks/customers_data_request"
+  shop_deletion_url = "https://shop-app.blackcart.com/webhooks/shop_redact"
+
+[pos]
+embedded = false

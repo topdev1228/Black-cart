@@ -1,0 +1,39 @@
+{
+    "data" : {
+        "order" : {
+            "id" : "gid://shopify/Order/5095450214539",
+            "lineItems" : {
+                "edges": [
+                    {
+                        "node": {
+                            "id": "gid://shopify/LineItem/12878423851147",
+                            "sellingPlan": null
+                        }
+                    },
+                    {
+                        "node": {
+                            "id": "gid://shopify/LineItem/12878423883915",
+                            "sellingPlan": {
+                                "sellingPlanId": "gid://shopify/SellingPlan/1209630859",
+                                "name": "5-day Try Before You Buy trial"
+                            }
+                        }
+                    },
+                    {
+                        "node": {
+                            "id": "gid://shopify/LineItem/14402934702396",
+                            "sellingPlan": {
+                                "sellingPlanId": "gid://shopify/SellingPlan/1209630859",
+                                "name": "5-day Try Before You Buy trial"
+                            }
+                        }
+                    }
+                ]
+            },
+            "paymentTerms" : {
+                "id" : "gid://shopify/PaymentTerms/8568340619",
+                "paymentTermsName" : "Fixed"
+            }
+        }
+    }
+}

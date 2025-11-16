@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+export DD_API_KEY=$(gcloud secrets versions access latest --secret="DATADOG_API_KEY" --project=blackcart 2>&1)
+
+echo "DD_API_KEY: ${DD_API_KEY:0:4}[redacted]"
+
+/bin/entrypoint.sh

@@ -1,0 +1,37 @@
+grumphp:
+  git_hook_variables:
+    EXEC_GRUMPHP_COMMAND: [ 'bin/pre-commit' ]
+  process_timeout: 300
+  ascii:
+    succeeded: ~
+    failed: ~
+  fixer:
+    enabled: true
+    fix_by_default: true
+  parallel:
+    enabled: false
+    max_workers: 8
+  hide_circumvention_tip: false
+  tasks:
+    phpcs:
+      metadata:
+        task: 'phpcsfixer2'
+      using_cache: true
+      config: .php-cs-fixer.dist.php
+      verbose: true
+    ide-helper:
+      metadata:
+        task: shell
+      scripts:
+        - [ './scripts/dev-update-ide-metadata' ]
+    npx:
+      triggered_by: [ 'js', 'jsx', 'ts', 'tsx' ]
+      script: lint-staged
+
+services:
+  App\Console\GrumPHP\Npx:
+    arguments:
+      - '@process_builder'
+      - '@formatter.raw_process'
+    tags:
+      - { name: grumphp.task, task: npx, priority: 0 }

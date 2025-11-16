@@ -1,0 +1,7 @@
+roles = ["backend", "frontend"]
+
+port = 8084
+
+[commands]
+dev = "run-shopify.sh"
+build = "npx vite build"

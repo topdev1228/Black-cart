@@ -1,0 +1,25 @@
+mutation RefundCreate(
+    $orderId: ID!,
+    $note: String!,
+    $refundLineItems: [RefundLineItemInput!],
+    $currency: CurrencyCode,
+    $amount: Money!,
+    $gateway: String!,
+    $parentTransactionId: ID
+) {
+    refundCreate(input: {
+        orderId: $orderId,
+        note: $note,
+        refundLineItems: $refundLineItems,
+        currency: $currency,
+        transactions: [{orderId: $orderId, kind: REFUND, amount: $amount, gateway: $gateway, parentId: $parentTransactionId}]
+    }) {
+        userErrors {
+            field
+            message
+        }
+        refund {
+            id
+        }
+    }
+}

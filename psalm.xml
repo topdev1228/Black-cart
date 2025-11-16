@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<psalm
+        errorLevel="5"
+        resolveFromConfigFile="true"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://getpsalm.org/schema/config"
+        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+        findUnusedBaselineEntry="true"
+        findUnusedCode="false"
+        usePhpDocPropertiesWithoutMagicCall="true"
+        usePhpDocMethodsWithoutMagicCall="true"
+>
+    <projectFiles>
+        <directory name="app"/>
+        <ignoreFiles allowMissingFiles="true">
+            <directory name="vendor"/>
+            <directory name="app/Domain/*/GraphQL/*/*/*"/>
+            <file name="app/Domain/Shared/Services/MetricsService.php"/>
+            <file name="_ide_helper.php"/>
+            <file name=".phpstorm.meta.php"/>
+        </ignoreFiles>
+    </projectFiles>
+    <issueHandlers>
+        <MissingTemplateParam>
+            <errorLevel type="suppress">
+                <directory name="app"/>
+            </errorLevel>
+        </MissingTemplateParam>
+        <InvalidTemplateParam>
+            <errorLevel type="suppress">
+                <directory name="app"/>
+            </errorLevel>
+        </InvalidTemplateParam>
+        <InvalidExtendClass>
+            <errorLevel type="suppress">
+            </errorLevel>
+        </InvalidExtendClass>
+        <MethodSignatureMismatch>
+            <errorLevel type="suppress">
+                <directory name="app/Domain/*/Values"/>
+            </errorLevel>
+        </MethodSignatureMismatch>
+        <InvalidDocblock>
+            <errorLevel type="suppress">
+                <!--                <directory name="app/Domain/*/Database/Factories" />-->
+                <!--                <directory name="app/Domain/*/Models" />-->
+            </errorLevel>
+        </InvalidDocblock>
+        <TooManyTemplateParams>
+            <errorLevel type="suppress">
+                <!--                <directory name="app/Domain/*/Database/Seeders" />-->
+            </errorLevel>
+        </TooManyTemplateParams>
+        <InvalidScope>
+            <errorLevel type="suppress">
+                <file name="app/Domain/Shared/routes/console.php"/>
+            </errorLevel>
+        </InvalidScope>
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <directory name="app"/>
+                <directory name="tests"/>
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+        <UnsafeInstantiation>
+            <errorLevel type="suppress">
+                <file name="app/Domain/Shared/Traits/HasValueCollection.php"/>
+                <file name="app/Domain/Shared/Traits/HasModelCollection.php"/>
+            </errorLevel>
+        </UnsafeInstantiation>
+        <ForbiddenCode>
+            <errorLevel type="error"/>
+        </ForbiddenCode>
+    </issueHandlers>
+    <plugins>
+        <pluginClass class="Psalm\LaravelPlugin\Plugin"/>
+        <pluginClass class="Marartner\PsalmStrictEquality\Plugin"/>
+    </plugins>
+    <forbiddenFunctions>
+        <function name="var_dump"/>
+        <function name="var_export"/>
+        <function name="dd"/>
+        <function name="dump"/>
+        <function name="xdebug_break"/>
+    </forbiddenFunctions>
+</psalm>

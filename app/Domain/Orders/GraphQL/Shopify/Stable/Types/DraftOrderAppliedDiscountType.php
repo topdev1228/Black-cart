@@ -1,0 +1,19 @@
+<?php declare(strict_types=1);
+
+namespace App\Domain\Orders\GraphQL\Shopify\Stable\Types;
+
+class DraftOrderAppliedDiscountType
+{
+    public const FIXED_AMOUNT = 'FIXED_AMOUNT';
+    public const PERCENTAGE = 'PERCENTAGE';
+
+    public static function endpoint(): string
+    {
+        return 'shopify-orders-2024-01';
+    }
+
+    public static function config(): string
+    {
+        return \Safe\realpath(__DIR__ . '/../../../../../../../sailor.php');
+    }
+}

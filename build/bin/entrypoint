@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+
+echo "Environment: ${APP_ENV}"
+cd "${APP_DIR}"
+if [ -f "${APP_DIR}/artisan" ]; then
+  if [ "${APP_ENV}" != "local" ]; then
+    if [ "${APP_ENV}" == "testing" ]; then
+      /usr/local/bin/php artisan key:generate --env=testing
+    fi
+  fi
+fi
+
+if [[ "$APP_ENV" != "local" ]]; then
+  # Run composer post-deploy-cmd
+  su -s /bin/bash -m www-data -pc "/usr/local/bin/php -d auto_prepend_file='' /usr/local/bin/composer run post-deploy-cmd"
+else
+  # Install npm deps
+  if [ ! -d "node_modules" ]; then
+    # Run JS build
+    npm install
+    npx vite build
+  fi
+
+  su -s /bin/bash -m www-data -c "/usr/local/bin/php -d auto_prepend_file='' /app/artisan config:cache"
+fi
+
+if [ "$APP_ENV" == "testing" ]; then
+  export SKIP_LOCKDOWN_DOCUMENT_ROOT=true
+fi
+
+if [ "$APP_ENV" == "local" ]; then
+  export SKIP_LOCKDOWN_DOCUMENT_ROOT=true
+  echo "listen $(ip -o -4 a s eth0 | awk '{ print $4 }' | cut -d/ -f1):3457;" > /etc/nginx/listen-3457.conf
+fi
+
+lockdown
+
+exec "$@"

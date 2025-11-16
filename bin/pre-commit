@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+BASE_DIR=`dirname $0`
+
+if test -t 1; then
+  COLORS=$(tput colors)
+  if test -n "$COLORS" && test $COLORS -ge 8; then
+    ESC='\033['
+    YELLOW="${ESC}1;33m"
+    RED="${ESC}0;31m"
+    GREEN="${ESC}0;32m"
+    BLUE="${ESC}0;34m"
+    NC="${ESC}0m"
+    BOLD="${ESC}1m"
+  fi
+fi
+
+function on_error() {
+  echo -en "${RED}[ERROR]${NC} Something went wrong. Show log? [Y/n] "
+  old_stty_cfg=$(stty -g)
+  stty raw -echo ; SHOW_LOG=$(head -c 1) ; stty $old_stty_cfg # Careful playing with stty
+  if [ "$SHOW_LOG" == "${SHOW_LOG#[Nn]}" ] ;then
+    echo -e "\n\n$1"
+  else
+    echo -e "\n"
+  fi
+}
+
+if [[ "$@" == *"--help"* ]]; then
+  echo "Usage: $0 [command]"
+  echo ""
+  echo "Run Blackcart pre-commit hook"
+  echo -e "${BOLD}Note:${NC} this script can be executed from any directory."
+  echo ""
+  echo -e "${BOLD}Options:${NC}"
+  echo "  --help             Display this help output"
+  exit 1
+fi
+
+if [[ "$2" == "git:commit-msg" ]]; then
+  exit 0
+fi
+
+if [[ "$2" == "git:pre-commit" ]]; then
+  echo "Running in Container"
+  dev run -T --rm --no-deps shopify $@
+  exit $?
+fi
+
+exit 1

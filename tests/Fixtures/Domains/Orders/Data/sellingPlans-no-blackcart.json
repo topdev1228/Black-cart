@@ -1,0 +1,57 @@
+{
+    "data" : {
+        "order" : {
+            "id" : "gid://shopify/Order/5492763623680",
+            "lineItems" : {
+                "edges": [
+                    {
+                        "node": {
+                            "id": "gid://shopify/LineItem/13672131264768",
+                            "sellingPlan": null
+                        }
+                    },
+                    {
+                        "node": {
+                            "id": "gid://shopify/LineItem/13672131297536",
+                            "sellingPlan": {
+                                "sellingPlanId": "gid://shopify/SellingPlan/111111111",
+                                "name": "This is not a Blackcart selling plan"
+                            }
+                        }
+                    },
+                    {
+                        "node": {
+                            "id": "gid://shopify/LineItem/13672131330304",
+                            "sellingPlan": {
+                                "sellingPlanId": "gid://shopify/SellingPlan/111111111",
+                                "name": "This is not a Blackcart selling plan"
+                            }
+                        }
+                    },
+                    {
+                        "node": {
+                            "id": "gid://shopify/LineItem/13672131363072",
+                            "sellingPlan": {
+                                "sellingPlanId": "gid://shopify/SellingPlan/111111111",
+                                "name": "This is not a Blackcart selling plan"
+                            }
+                        }
+                    },
+                    {
+                        "node": {
+                            "id": "gid://shopify/LineItem/13672131395840",
+                            "sellingPlan": {
+                                "sellingPlanId": "gid://shopify/SellingPlan/111111111",
+                                "name": "This is not a Blackcart selling plan"
+                            }
+                        }
+                    }
+                ]
+            },
+            "paymentTerms" : {
+                "id" : "gid://shopify/PaymentTerms/8568340619",
+                "paymentTermsName" : "Fixed"
+            }
+        }
+    }
+}

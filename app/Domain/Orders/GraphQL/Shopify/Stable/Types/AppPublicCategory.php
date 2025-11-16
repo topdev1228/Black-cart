@@ -1,0 +1,21 @@
+<?php declare(strict_types=1);
+
+namespace App\Domain\Orders\GraphQL\Shopify\Stable\Types;
+
+class AppPublicCategory
+{
+    public const CUSTOM = 'CUSTOM';
+    public const OTHER = 'OTHER';
+    public const PRIVATE = 'PRIVATE';
+    public const PUBLIC = 'PUBLIC';
+
+    public static function endpoint(): string
+    {
+        return 'shopify-orders-2024-01';
+    }
+
+    public static function config(): string
+    {
+        return \Safe\realpath(__DIR__ . '/../../../../../../../sailor.php');
+    }
+}

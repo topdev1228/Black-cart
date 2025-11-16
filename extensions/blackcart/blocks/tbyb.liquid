@@ -1,0 +1,418 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant | default: product.variants.first
+  assign allocations = current_variant.selling_plan_allocations
+  assign current_selling_plan_allocation = allocations.first
+  assign currency_display_format = shop.money_format
+  assign app = app
+  assign min_tbyb_items = "1"
+  if app.metafields.blackcart.min_tbyb_items
+    assign min_tbyb_items = app.metafields.blackcart.min_tbyb_items
+  endif
+  assign max_tbyb_items = "5"
+  if app.metafields.blackcart.max_tbyb_items
+    assign max_tbyb_items = app.metafields.blackcart.max_tbyb_items
+  endif
+  assign selling_plan_id = app.metafields.blackcart.selling_plan_id
+  assign deposit_type = "fixed"
+  if app.metafields.blackcart.deposit_type
+    assign deposit_type = app.metafields.blackcart.deposit_type
+  endif
+  assign deposit_percentage = "10"
+  if app.metafields.blackcart.deposit_percentage
+    assign deposit_percentage = app.metafields.blackcart.deposit_percentage
+  endif
+  assign deposit_fixed = "25"
+  if app.metafields.blackcart.deposit_fixed
+    assign deposit_fixed = app.metafields.blackcart.deposit_fixed
+  endif
+  assign store_status = "disabled"
+  if app.metafields.blackcart.store_status
+    assign store_status = app.metafields.blackcart.store_status
+  endif
+  assign subscription_status = "disabled"
+  if app.metafields.blackcart.subscription_status
+    assign subscription_status = app.metafields.blackcart.subscription_status
+  endif
+  assign program_name = "Try Before You Buy"
+  if app.metafields.blackcart.program_name
+    assign program_name = app.metafields.blackcart.program_name
+  endif
+  assign try_period_days = 5
+  if app.metafields.blackcart.try_period_days
+    assign try_period_days = app.metafields.blackcart.try_period_days
+  endif
+
+  assign blackcartUrl = "https://blackcart.com/how-it-works-shopper?utm_medium=shopify_app&utm_source=" | append: request.host
+
+  assign offer = current_selling_plan_allocation | default: current_variant
+
+  assign use_tbyb_toggle = false
+  if block.settings.tbyb_ui == "toggle"
+    assign use_tbyb_toggle = true
+  endif
+-%}
+
+{% comment %} START Setting up global variables and listeners {% endcomment %}
+<script>
+  var tbybSellingPlanId = "{{ selling_plan_id }}".replace("gid://shopify/SellingPlan/", "");
+  var currentVariant = {{ current_variant | json }};
+  var isCurrentVariantEligibleForTbyb = false;
+  var product = {{ product | json }};
+  var selectedVariantId = String(currentVariant.id);
+  var minTbybItems = {{ min_tbyb_items }};
+  var maxTbybItems = "{{ max_tbyb_items }}";
+  var useTbybToggle = {{ use_tbyb_toggle }};
+  var depositFixed = {{ deposit_fixed }};
+  var depositType = "{{ deposit_type }}";
+  var depositPercentage = {{ deposit_percentage }};
+  var currencyDisplayFormat = "{{ currency_display_format }}";
+  var isBlockVisible = false;
+  if (typeof depositFixed !== 'number') {
+    if (typeof depositFixed !== 'undefined' && depositFixed.hasOwnProperty('amount')) {
+      depositFixed = depositFixed.amount;
+    } else {
+      console.error('depositFixed is not defined or does not have an amount property');
+    }
+  }
+  var tbybItemsInCart = 0;
+  // items that have been added as tbyb and should be blocked from adding more.
+  var disabledVariants = {};
+  for (let i = 0; i < currentVariant.selling_plan_allocations?.length; i++) {
+    if (currentVariant.selling_plan_allocations[i]?.selling_plan_id == tbybSellingPlanId) {
+      isCurrentVariantEligibleForTbyb = true;
+      break;
+    }
+  }
+
+  //check if any variants for the product are eligible for tbyb, default to false
+  doesProductHaveTbybEligibleVariant = isCurrentVariantEligibleForTbyb;
+  for (let i = 0; i < product.selling_plan_groups?.length; i++) {
+    for (let j = 0; j < product.selling_plan_groups[i]['selling_plans']?.length; j++) {
+      if (product.selling_plan_groups[i]['selling_plans'][j]['id'] == tbybSellingPlanId) {
+        doesProductHaveTbybEligibleVariant = true;
+        depositFixed = Math.round(Math.ceil(product.selling_plan_groups[i]['selling_plans'][j]['checkout_charge']?.value / 100));
+        break;
+      }
+    }
+  }
+
+  var isTbybDefault = {{ block.settings.is_tbyb_default }};
+  var tbybOptionSelected = isTbybDefault && isCurrentVariantEligibleForTbyb ? "tbyb" : "upfront";
+  var variantsEligibleForTbyb = [];
+  for (let i = 0; i < product.variants?.length; i++) {
+    for (let j = 0; j < product.variants[i].selling_plan_allocations?.length; j++) {
+      if (product.variants[i].selling_plan_allocations[j]?.selling_plan_id == tbybSellingPlanId) {
+        variantsEligibleForTbyb.push(String(product.variants[i]?.id));
+        break;
+      }
+    }
+  }
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  updateUiWithCurrentCartState();
+  // When the user clicks on <span> (x), close the modal
+  document.getElementById("closeTbybLearnMoreModal").addEventListener('click', (event) => {
+    document.getElementById("tbybLearnMoreModal").style.display = "none";
+  });
+  document.getElementById("learnMoreModalLink").addEventListener('click', (event) => {
+    document.getElementById("tbybLearnMoreModal").style.display = "flex";
+  });
+
+  window.addEventListener('click', (event) => {
+    if (event.target.id == "tbybLearnMoreModal" && event.target.id != "learnMoreModalLink") {
+      document.getElementById("tbybLearnMoreModal").style.display = "none";
+    }
+  });
+
+  //Set up tbyb toggle or button
+  let depositText = "Only pay for what you keep.";
+  let learnMoreModalDontPayTodayText = "Try at home within {{ try_period_days }} days of delivery";
+  if (depositFixed > 0 && depositType == "fixed") {
+    depositText = "A " + convertCurrency(depositFixed, currencyDisplayFormat) + " refundable deposit applies. " + depositText;
+    learnMoreModalDontPayTodayText = learnMoreModalDontPayTodayText + " with just a refundable deposit of " + convertCurrency(depositFixed, currencyDisplayFormat);
+  } else if (depositPercentage > 0) {
+    depositText = "A " + depositPercentage + "% refundable deposit applies. " + depositText;
+    learnMoreModalDontPayTodayText = learnMoreModalDontPayTodayText + " with just a refundable deposit of {{ deposit_percentage }}% of your item";
+  }
+  {% if use_tbyb_toggle %}
+    if (isTbybDefault && isCurrentVariantEligibleForTbyb) {
+      document.getElementById("tbybPurchaseOption").checked = true;
+    } else {
+      document.getElementById("tbybPurchaseOption").disabled = true;
+      document.getElementById("payTodayPurchaseOption").checked = true;
+    }
+    toggleStateChecker();
+
+    document.querySelectorAll('span[id="blackcartTbyb"] form input[name=purchase_option]').forEach((option) => {
+      option.addEventListener('click', (event) => {
+        tbybOptionSelected = event.target.value;
+      })
+    })
+    document.getElementById("tbybSubText").textContent = depositText;
+  {% else %}
+    document.getElementById("tbybButton").addEventListener('click', (event) => {
+        tbybButtonListener(event);
+    });
+    if (!isCurrentVariantEligibleForTbyb) {
+      document.getElementById("tbybButton").disabled = true;
+    }
+    document.getElementById("tbybButtonSubText").textContent = depositText + " ";
+  {% endif %}
+
+  //show tbyb ui if subscription status and the selling plan were retrieved from meta data AND (if the user is on the theme editor
+  //OR if they are on their theme, that the product they are viewing has at least one eligible variant and that their store is active)
+  document.getElementById("blackcartTbyb").style.display = "none";
+  if ("{{ subscription_status }}" == "active" && tbybSellingPlanId) {
+    let shopifyAdminUrl = "https://admin.shopify.com";
+    if ((window.location.ancestorOrigins && Object.values(window.location.ancestorOrigins).some((x) => x.startsWith(shopifyAdminUrl)))
+    || window.location.origin.startsWith(shopifyAdminUrl)) {
+      isBlockVisible = true;
+    }
+
+    if (doesProductHaveTbybEligibleVariant) {
+      if ("{{ store_status }}" == "active") {
+        isBlockVisible = true;
+      }
+
+      let cookie = getCookie("blackcart_tbyb");
+      if (cookie === 'true') {
+        isBlockVisible = true;
+      } else if (cookie === 'false') {
+        isBlockVisible = false;
+      }
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const tbybParam = urlParams.get('tbyb');
+      if (tbybParam) {
+        if (tbybParam == 1) {
+            document.cookie = "blackcart_tbyb=true";
+            isBlockVisible = true;
+        } else {
+            document.cookie = "blackcart_tbyb=false; expires=01 Jan 1970";
+            isBlockVisible = false;
+        }
+      }
+    }
+
+    if (isBlockVisible) {
+      document.getElementById("blackcartTbyb").style.display = "block";
+    }
+  }
+
+  //set deposit line in learn more modal
+  document.getElementById("blackcartLearnMoreModalDepositLine").textContent = learnMoreModalDontPayTodayText;
+
+  //variant picker listener
+  if (document.querySelector('product-form[class=product-form] [name="id"]')) {
+      document.querySelector('product-form[class=product-form] [name="id"]').addEventListener('change', (event) => {
+          selectedVariantId = String(event.target.value);
+          variantPickerListener(selectedVariantId, isTbybDefault);
+      });
+  }
+
+  function handleNavigation(url) {
+    const urlObj = new URL(url);
+    const queryString = urlObj.search;
+    const urlParams = new URLSearchParams(queryString);
+    const newVariantId = urlParams.get('variant');
+    if (newVariantId == null) {
+      return;
+    }
+    selectedVariantId = newVariantId;
+    variantPickerListener(selectedVariantId, isTbybDefault);
+  }
+
+  // Modern browsers support 'navigate' event
+  if (window.navigation && window.navigation.addEventListener) {
+    window.navigation.addEventListener("navigate", (event) => {
+      handleNavigation(event.destination.url);
+    });
+  } else {
+    // Fallback for older browsers
+    let lastUrl = location.href;
+    function checkUrl() {
+      const currentUrl = location.href;
+      if (currentUrl !== lastUrl) {
+        lastUrl = currentUrl;
+        handleNavigation(currentUrl);
+      }
+    }
+    window.addEventListener("hashchange", () => {
+      checkUrl();
+    });
+    setInterval(checkUrl, 100);
+    document.addEventListener("DOMContentLoaded", () => {
+      handleNavigation(location.href);
+    });
+  }
+
+  //attach modal to body
+  let modal = document.getElementById('tbybLearnMoreModal');
+  let body = document.body;
+  body.insertBefore( modal, body.firstChild);
+});
+</script>
+{% comment %} END Setting up global variables and listeners {% endcomment %}
+
+{% comment %} START Setting up the Tbyb toggle or button ui {% endcomment %}
+<span id="blackcartTbyb" style="display: none;">
+  {% form "product", product %}
+    {% if use_tbyb_toggle %}
+      <fieldset class="selling-plan-fieldset">
+        <div id="tbybPurchaseOptionContainer">
+          <span id="tbybOptionText">
+            <label>
+              <input id="tbybPurchaseOption" type="radio" name="purchase_option" value="tbyb">
+              <div id="tbybOptionTextLabel"> Try Before You Buy <span class="optionPrice">{{ 0 | money }}</span></div>
+            </label>
+            <p id="tbybToggleOptionTextDisabled" style="display: none;">This item is not available for Try Before You Buy.</p>
+            <p id='tbybToggleOptionTextDisabledWhenMaxItems' style='display: none;'>
+                You have reached the max number of TBYB items in your cart.
+            </p>
+            <p id="tbybToggleOptionTextAlreadyLimitReached" style="display: none;">You can only try this item once.</p>
+            <p id="tbybSubText"></p>
+          </span>
+          <div>
+            <span id="togglePoweredByBlackcartContainer">Powered by
+              <a href="{{ blackcartUrl }}" target="_blank">
+                <svg width="60" height="9" viewBox="0 0 77 11" fill="none" xmlns="http://www.w3.org/2000/svg"><title>Blackcart</title><path d="M11.4861 2.67029e-07H13.3323V10.8396H11.4861V2.67029e-07Z" fill="black"></path><path d="M74.3471 4.18441V9.14065H76.4489V10.8396H72.5159V4.18441H71.1215V2.54273H72.5159V0.666036H74.3471V2.54273H76.4489V4.18441H74.3471Z" fill="black"></path><path d="M9.94663 7.70624C9.94663 9.49275 8.57785 10.8404 6.76343 10.8404H0.671143V0H7.24179V4.59634L7.39123 4.62236C8.8944 4.8938 9.94574 6.1617 9.94663 7.70624ZM2.51386 4.57206H5.39907V1.76829H2.51386V4.57206ZM8.05616 7.70798C8.05616 7.0246 7.50352 6.3204 6.57863 6.3204H2.49971V9.09555H6.64317C7.46196 9.09122 8.05616 8.50844 8.05616 7.70798Z" fill="black"></path><path d="M64.4492 2.54273H69.5423V4.18701H66.2742V10.8396H64.4492V2.54273Z" fill="black"></path><path d="M43.6602 2.54273L39.6485 6.69071L43.6602 10.8396H41.2021L37.4822 6.99338V10.8396H35.6226V2.67029e-07H37.4822V6.38805L41.2021 2.54273H43.6602Z" fill="black"></path><path d="M45.6983 6.70893C45.6983 8.26995 46.7851 9.39735 48.2882 9.39735C49.3811 9.39735 50.2468 8.83018 50.6394 7.87015L52.3194 8.55006C51.6297 10.0643 50.0965 10.9974 48.275 10.9974C45.6727 10.9974 43.8539 9.24298 43.8539 6.728C43.8539 5.52949 44.296 4.43937 45.1059 3.64152C45.9159 2.84366 47.0406 2.41004 48.2732 2.41004C50.1539 2.41004 51.658 3.31804 52.3344 4.85044L50.6288 5.54423C50.4403 5.0846 50.1138 4.69201 49.6927 4.41849C49.2715 4.14498 48.7756 4.00346 48.2705 4.01269C46.7532 4.01269 45.6983 5.12362 45.6983 6.70893Z" fill="black"></path><path d="M27.1907 6.71153C27.1907 8.27255 28.2765 9.39995 29.7797 9.39995C30.8726 9.39995 31.7383 8.83278 32.1317 7.87275L33.8073 8.55267C33.1176 10.0669 31.5844 11 29.7638 11C27.1598 11 25.3427 9.24559 25.3427 6.73061C25.3427 5.53209 25.7848 4.44197 26.5939 3.64412C27.4029 2.84626 28.5285 2.41265 29.762 2.41265C31.6454 2.41265 33.1504 3.32064 33.8294 4.85651L32.1176 5.54423C31.9293 5.08502 31.6032 4.69272 31.1826 4.41924C30.762 4.14576 30.2666 4.00399 29.762 4.01269C28.2491 4.01269 27.1916 5.12362 27.1907 6.71153Z" fill="black"></path><path d="M22.0357 2.54273H23.7635V10.8404H22.0658V9.64538C21.659 10.1657 20.6864 10.9766 19.154 10.9766C16.6163 10.9766 14.9098 9.24732 14.9098 6.67424C14.9098 4.19048 16.6941 2.38836 19.154 2.38836C19.7133 2.38063 20.2664 2.5041 20.7672 2.74848C21.268 2.99286 21.702 3.35107 22.033 3.79328L22.0357 2.54273ZM19.383 9.41123C20.918 9.41123 21.9897 8.28382 21.9933 6.67684C21.9933 5.10194 20.8968 3.95893 19.3866 3.95893C17.8427 3.95893 16.764 5.07679 16.764 6.67684C16.764 8.26127 17.8675 9.41123 19.3866 9.41123H19.383Z" fill="black"></path><path d="M60.7239 2.54273H62.4561V10.8404H60.7593V9.64538C60.3534 10.1657 59.3808 10.9766 57.8484 10.9766C55.3107 10.9766 53.6042 9.24732 53.6042 6.67423C53.6042 4.19048 55.3876 2.38836 57.8484 2.38836C58.4074 2.38134 58.96 2.50541 59.4601 2.75024C59.9603 2.99507 60.3936 3.35357 60.7239 3.79588V2.54273ZM58.0713 9.41123C59.6054 9.41123 60.6771 8.28382 60.6771 6.6777C60.6771 5.10281 59.5815 3.95979 58.0713 3.95979C56.5265 3.95979 55.4487 5.07766 55.4487 6.6777C55.4487 8.26127 56.5539 9.41123 58.0739 9.41123H58.0713Z" fill="black"></path></svg>
+              </a>
+            </span>
+            <span id="dividerPoweredByBlackcart">
+              <svg xmlns="http://www.w3.org/2000/svg" width="3" height="6" viewBox="0 0 4 4" fill="none">
+                <circle cx="2" cy="2" r="2" fill="#262626"></circle>
+              </svg>
+            </span>
+             <div id="learnMoreModalLink">Learn More</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+
+        {% unless product.requires_selling_plan %}
+        <label id="payTodayOptionContainer">
+        <input id="payTodayPurchaseOption" type="radio" name="purchase_option" value="upfront">
+        <div id="payTodayPurchaseOptionSection">
+          <span id="payTodayPurchaseOptionTextLabel">Pay Today</span>
+          <span class="optionPrice" id="payTodayPurchaseOptionText"> {{ offer.price | money }} </span>
+        </div>
+        </label>
+        {% endunless %}
+      </fieldset>
+    {% else %}
+      <div id="tbybButtonContainer">
+        <button type="button" id="tbybButton">Try Before You Buy</button>
+        <p id="tbybButtonOptionTextDisabled" style="display: none;">Try Before You Buy is not available for this item.</p>
+        <span id="tbybOptionText">
+          <p id="tbybButtonSubText">
+          <div id="learnMoreModalLink">Learn more.</div></p>
+        </span>
+      </div>
+    {% endif %}
+  {% endform %}
+</span>
+{% comment %} END Setting up the Tbyb toggle or button ui {% endcomment %}
+
+
+<!--START Learn More Modal -->
+<div id="tbybLearnMoreModal" style="display: none;">
+  <!-- Modal content -->
+  <div id="blackcartLearnMoreModalContent">
+    <span id="closeTbybLearnMoreModal">&times;</span>
+    <div id="blackcartLearnMoreModalHeader">
+      <div id="blackcartLearnMoreModalPill">
+        {% if program_name != blank %}
+          {{ program_name }}
+        {% else %}
+          Try Before You Buy
+        {% endif %}
+      </div>
+    <h3>
+      {% if program_name != blank %}
+        {{ program_name }}
+      {% else %}
+        Try at Home Before You Buy
+      {% endif %}
+    </h3>
+    </div>
+    <div id="blackcartLearnMoreModalBody">
+      <div class="blackcartLearnMoreModalBlock">
+        <div class="blackcartLearnMoreModalIcon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M184 184H69.818L41.922 30.569A8 8 0 0034.05 24H16"></path><circle cx="80" cy="204" r="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></circle><circle cx="184" cy="204" r="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></circle><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M62.545 144h125.556a16 16 0 0015.742-13.138L216 64H48"></path></svg>
+        </div>
+    <strong>Pick an item</strong>
+        {% if max_tbyb_items == "unlimited" %}
+          <span class="blackcartLearnMoreModalblockFooter"> Add as many items as you'd like to your cart as{% if program_name != blank %} {{ program_name }} {% else %} Try Before You Buy{% endif %} to try at home</span>
+        {% else %}
+          <span class="blackcartLearnMoreModalblockFooter"> Add up to {{ max_tbyb_items }} items to your cart as{% if program_name != blank %} {{ program_name }} {% else %} Try Before You Buy{% endif %} to try at home</span>
+        {% endif %}
+      </div>
+      <div class="blackcartLearnMoreModalBlock">
+        <div class="blackcartLearnMoreModalIcon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><rect width="192" height="160" x="32" y="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" rx="8"></rect><line x1="32" x2="224" y1="80" y2="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M168 112a40 40 0 01-80 0"></path></svg>        </div>
+        <strong>Don't pay for items today</strong>
+        <span id="blackcartLearnMoreModalDepositLine" class="blackcartLearnMoreModalblockFooter"></span>
+      </div>
+      <div class="blackcartLearnMoreModalBlock">
+        <div class="blackcartLearnMoreModalIcon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M128 216S28 160 28 92a52.009 52.009 0 01100-20.035h0A52.009 52.009 0 01228 92c0 68-100 124-100 124z"></path></svg>        </div>
+        <strong>If you love it, just keep it!</strong>
+        <span class="blackcartLearnMoreModalblockFooter">Your deposit goes towards items you keep</span>
+      </div>
+      <div class="blackcartLearnMoreModalBlock">
+        <div class="blackcartLearnMoreModalIcon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M224 177.321V78.68a8 8 0 00-4.078-6.973l-88-49.5a8 8 0 00-7.844 0l-88 49.5A8 8 0 0032 78.68v98.642a8 8 0 004.078 6.973l88 49.5a8 8 0 007.844 0l88-49.5A8 8 0 00224 177.32z"></path><polyline fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" points="177.022 152.511 177.022 100.511 80 47"></polyline><polyline fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" points="222.897 74.627 128.949 128 33.108 74.617"></polyline><line x1="128.949" x2="128.01" y1="128" y2="234.821" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line></svg>        </div>
+        <strong>Need to make a return?</strong>
+        <span class="blackcartLearnMoreModalblockFooter">Just follow our usual return policy</span>
+      </div>
+    </div>
+    <div id="blackcartLearnMoreModalBodyFooterBanner">Choose <strong>
+      {% if program_name != blank %}
+        {{ program_name }}
+      {% else %}
+        Try at Home Before You Buy
+      {% endif %}</strong> to get started. <strong><a href="{{ blackcartUrl }}" target="_blank">Learn more</a></strong>
+    </div>
+    <div id="blackcartLearnMoreModalFooter">
+    Upon checkout, an authorization will be placed on your card to reserve funds in case you choose to keep everything. The authorization means the money is still in your account but the funds are on hold. You will only be charged for any items kept after your trial period.
+      <span id="blackcartLearnMoreModalFooterLogo">Powered by
+        <a href="{{ blackcartUrl }}" target="_blank">
+          <svg width="66" height="11" viewBox="0 0 77 11" fill="none" xmlns="http://www.w3.org/2000/svg"><title>Blackcart</title><path d="M11.4861 2.67029e-07H13.3323V10.8396H11.4861V2.67029e-07Z" fill="black"></path><path d="M74.3471 4.18441V9.14065H76.4489V10.8396H72.5159V4.18441H71.1215V2.54273H72.5159V0.666036H74.3471V2.54273H76.4489V4.18441H74.3471Z" fill="black"></path><path d="M9.94663 7.70624C9.94663 9.49275 8.57785 10.8404 6.76343 10.8404H0.671143V0H7.24179V4.59634L7.39123 4.62236C8.8944 4.8938 9.94574 6.1617 9.94663 7.70624ZM2.51386 4.57206H5.39907V1.76829H2.51386V4.57206ZM8.05616 7.70798C8.05616 7.0246 7.50352 6.3204 6.57863 6.3204H2.49971V9.09555H6.64317C7.46196 9.09122 8.05616 8.50844 8.05616 7.70798Z" fill="black"></path><path d="M64.4492 2.54273H69.5423V4.18701H66.2742V10.8396H64.4492V2.54273Z" fill="black"></path><path d="M43.6602 2.54273L39.6485 6.69071L43.6602 10.8396H41.2021L37.4822 6.99338V10.8396H35.6226V2.67029e-07H37.4822V6.38805L41.2021 2.54273H43.6602Z" fill="black"></path><path d="M45.6983 6.70893C45.6983 8.26995 46.7851 9.39735 48.2882 9.39735C49.3811 9.39735 50.2468 8.83018 50.6394 7.87015L52.3194 8.55006C51.6297 10.0643 50.0965 10.9974 48.275 10.9974C45.6727 10.9974 43.8539 9.24298 43.8539 6.728C43.8539 5.52949 44.296 4.43937 45.1059 3.64152C45.9159 2.84366 47.0406 2.41004 48.2732 2.41004C50.1539 2.41004 51.658 3.31804 52.3344 4.85044L50.6288 5.54423C50.4403 5.0846 50.1138 4.69201 49.6927 4.41849C49.2715 4.14498 48.7756 4.00346 48.2705 4.01269C46.7532 4.01269 45.6983 5.12362 45.6983 6.70893Z" fill="black"></path><path d="M27.1907 6.71153C27.1907 8.27255 28.2765 9.39995 29.7797 9.39995C30.8726 9.39995 31.7383 8.83278 32.1317 7.87275L33.8073 8.55267C33.1176 10.0669 31.5844 11 29.7638 11C27.1598 11 25.3427 9.24559 25.3427 6.73061C25.3427 5.53209 25.7848 4.44197 26.5939 3.64412C27.4029 2.84626 28.5285 2.41265 29.762 2.41265C31.6454 2.41265 33.1504 3.32064 33.8294 4.85651L32.1176 5.54423C31.9293 5.08502 31.6032 4.69272 31.1826 4.41924C30.762 4.14576 30.2666 4.00399 29.762 4.01269C28.2491 4.01269 27.1916 5.12362 27.1907 6.71153Z" fill="black"></path><path d="M22.0357 2.54273H23.7635V10.8404H22.0658V9.64538C21.659 10.1657 20.6864 10.9766 19.154 10.9766C16.6163 10.9766 14.9098 9.24732 14.9098 6.67424C14.9098 4.19048 16.6941 2.38836 19.154 2.38836C19.7133 2.38063 20.2664 2.5041 20.7672 2.74848C21.268 2.99286 21.702 3.35107 22.033 3.79328L22.0357 2.54273ZM19.383 9.41123C20.918 9.41123 21.9897 8.28382 21.9933 6.67684C21.9933 5.10194 20.8968 3.95893 19.3866 3.95893C17.8427 3.95893 16.764 5.07679 16.764 6.67684C16.764 8.26127 17.8675 9.41123 19.3866 9.41123H19.383Z" fill="black"></path><path d="M60.7239 2.54273H62.4561V10.8404H60.7593V9.64538C60.3534 10.1657 59.3808 10.9766 57.8484 10.9766C55.3107 10.9766 53.6042 9.24732 53.6042 6.67423C53.6042 4.19048 55.3876 2.38836 57.8484 2.38836C58.4074 2.38134 58.96 2.50541 59.4601 2.75024C59.9603 2.99507 60.3936 3.35357 60.7239 3.79588V2.54273ZM58.0713 9.41123C59.6054 9.41123 60.6771 8.28382 60.6771 6.6777C60.6771 5.10281 59.5815 3.95979 58.0713 3.95979C56.5265 3.95979 55.4487 5.07766 55.4487 6.6777C55.4487 8.26127 56.5539 9.41123 58.0739 9.41123H58.0713Z" fill="black"></path></svg>
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
+<!--END Learn More Modal -->
+
+{% schema %}
+{
+  "name": "Blackcart TBYB",
+  "target": "section",
+  "stylesheet": "tbyb.css",
+  "javascript": "app_block.js",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The Blackcart app block will only be visible to live traffic when your Try Before You Buy (TBYB) program is launched."
+    },
+    { "type": "checkbox", "id": "is_tbyb_default", "label": "TBYB as default","info": "Set the TBYB block to default on the 'Try Before You Buy' option when the variant is eligible.", "default": true },
+    {
+      "type": "radio",
+      "id": "tbyb_ui",
+      "label": "TBYB as",
+      "info": "Customers can shop with the TBYB button or toggle.",
+      "options": [
+        {
+          "value": "toggle",
+          "label": "Toggle"
+        },
+        {
+          "value": "button",
+          "label": "Button"
+        }
+      ],
+      "default": "toggle"
+    }
+  ]
+}
+{% endschema %}

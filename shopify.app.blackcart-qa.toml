@@ -1,0 +1,29 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+name = "Blackcart QA"
+client_id = "9978aea28c8f035ed576b0beaa45023f"
+application_url = "https://tuesday-duck-under-businesses.trycloudflare.com"
+embedded = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_cart_transforms,write_cart_transforms,unauthenticated_read_checkouts,unauthenticated_write_checkouts,read_checkouts,write_checkouts,read_customer_payment_methods,write_customer_payment_methods,unauthenticated_read_customers,unauthenticated_write_customers,read_customers,write_customers,unauthenticated_read_customer_tags,read_discounts,write_discounts,read_draft_orders,write_draft_orders,read_files,write_files,read_fulfillments,write_fulfillments,read_gift_cards,write_gift_cards,read_inventory,write_inventory,read_locales,write_locales,read_locations,write_locations,read_markets,write_markets,unauthenticated_read_metaobjects,read_metaobject_definitions,write_metaobject_definitions,read_metaobjects,write_metaobjects,read_orders,write_orders,read_payment_mandate,write_payment_mandate,read_payment_terms,write_payment_terms,read_price_rules,write_price_rules,read_products,write_products,unauthenticated_read_product_listings,read_product_listings,unauthenticated_read_product_tags,read_purchase_options,write_purchase_options,read_reports,write_reports,read_returns,write_returns,unauthenticated_read_selling_plans,read_own_subscription_contracts,write_own_subscription_contracts,read_themes,write_themes,read_translations,read_order_edits,write_order_edits"
+use_legacy_install_flow = true
+
+[auth]
+redirect_urls = [
+  "https://tuesday-duck-under-businesses.trycloudflare.com/auth/callback",
+  "https://tuesday-duck-under-businesses.trycloudflare.com/auth/shopify/callback",
+  "https://tuesday-duck-under-businesses.trycloudflare.com/api/auth/callback",
+  "https://tuesday-duck-under-businesses.trycloudflare.com/.shopify/graphiql/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-01"
+
+[pos]
+embedded = false
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "quickstart-66ac8ce0.myshopify.com"

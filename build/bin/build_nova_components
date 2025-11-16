@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+if [[ "$1" == "run" ]]; then
+  # The absense of `docker` means we're inside docker, do nothing
+  if ! command -v docker &> /dev/null ; then
+    exit 0
+  fi
+
+  BASE_DIR=`dirname $0`
+  # shellcheck disable=SC2164
+  LOCAL_APP_DIR=$(cd ${BASE_DIR}/../../; pwd)
+  if [[ -z $FORCE ]]; then
+    # shellcheck disable=SC2140
+    docker run -ti --rm -v ${LOCAL_APP_DIR}:/app nova:latest bash -c "cd /app && git ls-files --modified | grep ^nova-components | grep -v dist | cut -d '/' -f 1,2 | uniq | xargs -n 1 -P 0 -I'{}' build_nova_components /app/{}"
+  else
+    docker run -ti --rm -v ${LOCAL_APP_DIR}:/app nova:latest bash -c "cd /app && ls /app/nova-components | xargs -n 1 -P 0 -I'{}' build_nova_components /app/nova-components/{}"
+  fi
+  exit $?
+fi
+
+echo "Building $(basename $1)"
+
+export YARN_CACHE_FOLDER=`mktemp -d`
+cd $1
+yarn install 2>&1 | grep -v "warning laravel-mix"
+npm run production
+cd -
+exit `git ls-files --modified | grep \.js$ | grep ^nova-components | grep '/dist/' | wc -l | sed 's/ //g'`

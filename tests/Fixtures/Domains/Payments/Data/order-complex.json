@@ -1,0 +1,936 @@
+{
+    "id": 5492763623680,
+    "admin_graphql_api_id": "gid:\/\/shopify\/Order\/5492763623680",
+    "app_id": 580111,
+    "browser_ip": "172.59.214.132",
+    "buyer_accepts_marketing": false,
+    "cancel_reason": null,
+    "cancelled_at": null,
+    "cart_token": "c1-8da4b06aab032abf43bd4ad403b61f31",
+    "checkout_id": 34835599720704,
+    "checkout_token": "eb5b91955bfd4a1f7e6f1abbc69fbfed",
+    "client_details": {
+        "accept_language": "en-US",
+        "browser_height": null,
+        "browser_ip": "172.59.214.132",
+        "browser_width": null,
+        "session_hash": null,
+        "user_agent": "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/120.0.0.0 Safari\/537.36"
+    },
+    "closed_at": null,
+    "company": null,
+    "confirmation_number": "V4WH7ICMR",
+    "confirmed": true,
+    "contact_email": "matthew+shopifytest@blackcart.co",
+    "created_at": "2024-02-02T15:57:33-05:00",
+    "currency": "CAD",
+    "current_subtotal_price": "6004.16",
+    "current_subtotal_price_set": {
+        "shop_money": {
+            "amount": "6004.16",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "4489.20",
+            "currency_code": "USD"
+        }
+    },
+    "current_total_additional_fees_set": null,
+    "current_total_discounts": "114.75",
+    "current_total_discounts_set": {
+        "shop_money": {
+            "amount": "114.75",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "85.80",
+            "currency_code": "USD"
+        }
+    },
+    "current_total_duties_set": null,
+    "current_total_price": "6615.65",
+    "current_total_price_set": {
+        "shop_money": {
+            "amount": "6615.65",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "4946.41",
+            "currency_code": "USD"
+        }
+    },
+    "current_total_tax": "539.27",
+    "current_total_tax_set": {
+        "shop_money": {
+            "amount": "539.27",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "403.21",
+            "currency_code": "USD"
+        }
+    },
+    "customer_locale": "en-US",
+    "device_id": null,
+    "discount_codes": [
+        {
+            "code": "LIQUID15PERCENTOFF",
+            "amount": "114.75",
+            "type": "percentage"
+        }
+    ],
+    "email": "matthew+shopifytest@blackcart.co",
+    "estimated_taxes": false,
+    "financial_status": "partially_paid",
+    "fulfillment_status": null,
+    "landing_site": "\/",
+    "landing_site_ref": null,
+    "location_id": null,
+    "merchant_of_record_app_id": null,
+    "name": "#1001",
+    "note": null,
+    "note_attributes": [],
+    "number": 1,
+    "order_number": 1001,
+    "order_status_url": "https:\/\/blackcart-matthew-teststore.myshopify.com\/68772659456\/orders\/0de98546f974552ce1d75758038d3e92\/authenticate?key=417d76ad520096d3c521d524b5ab8d23",
+    "original_total_additional_fees_set": null,
+    "original_total_duties_set": null,
+    "payment_gateway_names": [
+        "shopify_payments"
+    ],
+    "phone": null,
+    "po_number": null,
+    "presentment_currency": "USD",
+    "processed_at": "2024-02-02T15:57:29-05:00",
+    "reference": "fd2095454a06e8243529f1cce8971438",
+    "referring_site": "",
+    "source_identifier": "fd2095454a06e8243529f1cce8971438",
+    "source_name": "web",
+    "source_url": null,
+    "subtotal_price": "6004.16",
+    "subtotal_price_set": {
+        "shop_money": {
+            "amount": "6004.16",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "4489.20",
+            "currency_code": "USD"
+        }
+    },
+    "tags": "",
+    "tax_exempt": false,
+    "tax_lines": [
+        {
+            "price": "243.05",
+            "rate": 0.04,
+            "title": "New York State Tax",
+            "price_set": {
+                "shop_money": {
+                    "amount": "243.05",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "181.73",
+                    "currency_code": "USD"
+                }
+            },
+            "channel_liable": false
+        },
+        {
+            "price": "273.44",
+            "rate": 0.045,
+            "title": "New York City City Tax",
+            "price_set": {
+                "shop_money": {
+                    "amount": "273.44",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "204.45",
+                    "currency_code": "USD"
+                }
+            },
+            "channel_liable": false
+        },
+        {
+            "price": "22.78",
+            "rate": 0.00375,
+            "title": "Metropolitan Commuter Transportation District",
+            "price_set": {
+                "shop_money": {
+                    "amount": "22.78",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "17.03",
+                    "currency_code": "USD"
+                }
+            },
+            "channel_liable": false
+        }
+    ],
+    "taxes_included": false,
+    "test": true,
+    "token": "0de98546f974552ce1d75758038d3e92",
+    "total_discounts": "114.75",
+    "total_discounts_set": {
+        "shop_money": {
+            "amount": "114.75",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "85.80",
+            "currency_code": "USD"
+        }
+    },
+    "total_line_items_price": "6118.91",
+    "total_line_items_price_set": {
+        "shop_money": {
+            "amount": "6118.91",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "4575.00",
+            "currency_code": "USD"
+        }
+    },
+    "total_outstanding": "5289.04",
+    "total_price": "6615.65",
+    "total_price_set": {
+        "shop_money": {
+            "amount": "6615.65",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "4946.41",
+            "currency_code": "USD"
+        }
+    },
+    "total_shipping_price_set": {
+        "shop_money": {
+            "amount": "72.22",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "54.00",
+            "currency_code": "USD"
+        }
+    },
+    "total_tax": "539.27",
+    "total_tax_set": {
+        "shop_money": {
+            "amount": "539.27",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "403.21",
+            "currency_code": "USD"
+        }
+    },
+    "total_tip_received": "0.00",
+    "total_weight": 0,
+    "updated_at": "2024-02-02T15:57:35-05:00",
+    "user_id": null,
+    "billing_address": {
+        "first_name": "Matthew",
+        "address1": "1812 2nd Avenue",
+        "phone": null,
+        "city": "New York",
+        "zip": "10128",
+        "province": "New York",
+        "country": "United States",
+        "last_name": "Chan",
+        "address2": null,
+        "company": null,
+        "latitude": null,
+        "longitude": null,
+        "name": "Matthew Chan",
+        "country_code": "US",
+        "province_code": "NY"
+    },
+    "customer": {
+        "id": 7156883718400,
+        "email": "matthew+shopifytest@blackcart.co",
+        "created_at": "2024-02-02T14:35:00-05:00",
+        "updated_at": "2024-02-02T15:57:33-05:00",
+        "first_name": "Matthew",
+        "last_name": "Chan",
+        "state": "disabled",
+        "note": null,
+        "verified_email": true,
+        "multipass_identifier": null,
+        "tax_exempt": false,
+        "phone": null,
+        "email_marketing_consent": {
+            "state": "not_subscribed",
+            "opt_in_level": "single_opt_in",
+            "consent_updated_at": null
+        },
+        "sms_marketing_consent": null,
+        "tags": "",
+        "currency": "CAD",
+        "tax_exemptions": [],
+        "admin_graphql_api_id": "gid:\/\/shopify\/Customer\/7156883718400",
+        "default_address": {
+            "id": 8661370568960,
+            "customer_id": 7156883718400,
+            "first_name": "Matthew",
+            "last_name": "Chan",
+            "company": null,
+            "address1": "1812 2nd Avenue",
+            "address2": null,
+            "city": "New York",
+            "province": "New York",
+            "country": "United States",
+            "zip": "10128",
+            "phone": null,
+            "name": "Matthew Chan",
+            "province_code": "NY",
+            "country_code": "US",
+            "country_name": "United States",
+            "default": true
+        }
+    },
+    "discount_applications": [
+        {
+            "target_type": "line_item",
+            "type": "discount_code",
+            "value": "15.0",
+            "value_type": "percentage",
+            "allocation_method": "across",
+            "target_selection": "entitled",
+            "code": "LIQUID15PERCENTOFF"
+        }
+    ],
+    "fulfillments": [],
+    "line_items": [
+        {
+            "id": 13672131264768,
+            "admin_graphql_api_id": "gid:\/\/shopify\/LineItem\/13672131264768",
+            "attributed_staffs": [],
+            "current_quantity": 1,
+            "fulfillable_quantity": 1,
+            "fulfillment_service": "manual",
+            "fulfillment_status": null,
+            "gift_card": false,
+            "grams": 0,
+            "name": "The Multi-managed Snowboard",
+            "price": "643.32",
+            "price_set": {
+                "shop_money": {
+                    "amount": "643.32",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "481.00",
+                    "currency_code": "USD"
+                }
+            },
+            "product_exists": true,
+            "product_id": 8390362562816,
+            "properties": [],
+            "quantity": 1,
+            "requires_shipping": true,
+            "sku": "sku-managed-1",
+            "taxable": true,
+            "title": "The Multi-managed Snowboard",
+            "total_discount": "0.00",
+            "total_discount_set": {
+                "shop_money": {
+                    "amount": "0.00",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                }
+            },
+            "variant_id": 44320560611584,
+            "variant_inventory_management": "shopify",
+            "variant_title": null,
+            "vendor": "Multi-managed Vendor",
+            "tax_lines": [
+                {
+                    "channel_liable": false,
+                    "price": "25.73",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "25.73",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "19.24",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.04,
+                    "title": "New York State Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "28.96",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "28.96",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "21.65",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.045,
+                    "title": "New York City City Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "2.41",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "2.41",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "1.80",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.00375,
+                    "title": "Metropolitan Commuter Transportation District"
+                }
+            ],
+            "duties": [],
+            "discount_allocations": []
+        },
+        {
+            "id": 13672131297536,
+            "admin_graphql_api_id": "gid:\/\/shopify\/LineItem\/13672131297536",
+            "attributed_staffs": [],
+            "current_quantity": 1,
+            "fulfillable_quantity": 1,
+            "fulfillment_service": "manual",
+            "fulfillment_status": null,
+            "gift_card": false,
+            "grams": 0,
+            "name": "The Compare at Price Snowboard",
+            "price": "802.48",
+            "price_set": {
+                "shop_money": {
+                    "amount": "802.48",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "600.00",
+                    "currency_code": "USD"
+                }
+            },
+            "product_exists": true,
+            "product_id": 8390362497280,
+            "properties": [],
+            "quantity": 1,
+            "requires_shipping": true,
+            "sku": "",
+            "taxable": true,
+            "title": "The Compare at Price Snowboard",
+            "total_discount": "0.00",
+            "total_discount_set": {
+                "shop_money": {
+                    "amount": "0.00",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                }
+            },
+            "variant_id": 44320560546048,
+            "variant_inventory_management": "shopify",
+            "variant_title": null,
+            "vendor": "blackcart-matthew-teststore",
+            "tax_lines": [
+                {
+                    "channel_liable": false,
+                    "price": "32.10",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "32.10",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "24.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.04,
+                    "title": "New York State Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "36.11",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "36.11",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "27.00",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.045,
+                    "title": "New York City City Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "3.01",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "3.01",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "2.25",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.00375,
+                    "title": "Metropolitan Commuter Transportation District"
+                }
+            ],
+            "duties": [],
+            "discount_allocations": []
+        },
+        {
+            "id": 13672131330304,
+            "admin_graphql_api_id": "gid:\/\/shopify\/LineItem\/13672131330304",
+            "attributed_staffs": [],
+            "current_quantity": 1,
+            "fulfillable_quantity": 1,
+            "fulfillment_service": "snow-city-warehouse",
+            "fulfillment_status": null,
+            "gift_card": false,
+            "grams": 0,
+            "name": "The 3p Fulfilled Snowboard",
+            "price": "2682.96",
+            "price_set": {
+                "shop_money": {
+                    "amount": "2682.96",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "2006.00",
+                    "currency_code": "USD"
+                }
+            },
+            "product_exists": true,
+            "product_id": 8390362530048,
+            "properties": [],
+            "quantity": 1,
+            "requires_shipping": true,
+            "sku": "sku-hosted-1",
+            "taxable": true,
+            "title": "The 3p Fulfilled Snowboard",
+            "total_discount": "0.00",
+            "total_discount_set": {
+                "shop_money": {
+                    "amount": "0.00",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                }
+            },
+            "variant_id": 44320560578816,
+            "variant_inventory_management": "shopify",
+            "variant_title": null,
+            "vendor": "blackcart-matthew-teststore",
+            "tax_lines": [
+                {
+                    "channel_liable": false,
+                    "price": "107.32",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "107.32",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "80.24",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.04,
+                    "title": "New York State Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "120.73",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "120.73",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "90.27",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.045,
+                    "title": "New York City City Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "10.06",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "10.06",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "7.52",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.00375,
+                    "title": "Metropolitan Commuter Transportation District"
+                }
+            ],
+            "duties": [],
+            "discount_allocations": []
+        },
+        {
+            "id": 13672131363072,
+            "admin_graphql_api_id": "gid:\/\/shopify\/LineItem\/13672131363072",
+            "attributed_staffs": [],
+            "current_quantity": 2,
+            "fulfillable_quantity": 2,
+            "fulfillment_service": "manual",
+            "fulfillment_status": null,
+            "gift_card": false,
+            "grams": 0,
+            "name": "The Collection Snowboard: Hydrogen",
+            "price": "612.56",
+            "price_set": {
+                "shop_money": {
+                    "amount": "612.56",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "458.00",
+                    "currency_code": "USD"
+                }
+            },
+            "product_exists": true,
+            "product_id": 8390362366208,
+            "properties": [],
+            "quantity": 2,
+            "requires_shipping": true,
+            "sku": "",
+            "taxable": true,
+            "title": "The Collection Snowboard: Hydrogen",
+            "total_discount": "0.00",
+            "total_discount_set": {
+                "shop_money": {
+                    "amount": "0.00",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                }
+            },
+            "variant_id": 44320560447744,
+            "variant_inventory_management": "shopify",
+            "variant_title": null,
+            "vendor": "Hydrogen Vendor",
+            "tax_lines": [
+                {
+                    "channel_liable": false,
+                    "price": "49.00",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "49.00",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "36.64",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.04,
+                    "title": "New York State Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "55.13",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "55.13",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "41.22",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.045,
+                    "title": "New York City City Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "4.60",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "4.60",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "3.44",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.00375,
+                    "title": "Metropolitan Commuter Transportation District"
+                }
+            ],
+            "duties": [],
+            "discount_allocations": []
+        },
+        {
+            "id": 13672131395840,
+            "admin_graphql_api_id": "gid:\/\/shopify\/LineItem\/13672131395840",
+            "attributed_staffs": [],
+            "current_quantity": 1,
+            "fulfillable_quantity": 1,
+            "fulfillment_service": "manual",
+            "fulfillment_status": null,
+            "gift_card": false,
+            "grams": 0,
+            "name": "The Collection Snowboard: Liquid",
+            "price": "765.03",
+            "price_set": {
+                "shop_money": {
+                    "amount": "765.03",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "572.00",
+                    "currency_code": "USD"
+                }
+            },
+            "product_exists": true,
+            "product_id": 8390362759424,
+            "properties": [],
+            "quantity": 1,
+            "requires_shipping": true,
+            "sku": "",
+            "taxable": true,
+            "title": "The Collection Snowboard: Liquid",
+            "total_discount": "0.00",
+            "total_discount_set": {
+                "shop_money": {
+                    "amount": "0.00",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "0.00",
+                    "currency_code": "USD"
+                }
+            },
+            "variant_id": 44320560873728,
+            "variant_inventory_management": "shopify",
+            "variant_title": null,
+            "vendor": "Hydrogen Vendor",
+            "tax_lines": [
+                {
+                    "channel_liable": false,
+                    "price": "26.01",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "26.01",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "19.45",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.04,
+                    "title": "New York State Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "29.26",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "29.26",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "21.88",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.045,
+                    "title": "New York City City Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "2.43",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "2.43",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "1.82",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.00375,
+                    "title": "Metropolitan Commuter Transportation District"
+                }
+            ],
+            "duties": [],
+            "discount_allocations": [
+                {
+                    "amount": "114.75",
+                    "amount_set": {
+                        "shop_money": {
+                            "amount": "114.75",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "85.80",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "discount_application_index": 0
+                }
+            ]
+        }
+    ],
+    "payment_terms": {
+        "id": 22426091776,
+        "created_at": "2024-02-02T15:57:33-05:00",
+        "due_in_days": null,
+        "payment_schedules": [
+            {
+                "id": 24224727296,
+                "amount": "3954.53",
+                "currency": "USD",
+                "issued_at": null,
+                "due_at": "2024-02-09T15:56:14-05:00",
+                "completed_at": null,
+                "created_at": "2024-02-02T15:57:33-05:00",
+                "updated_at": "2024-02-02T15:57:33-05:00"
+            }
+        ],
+        "payment_terms_name": "Fixed",
+        "payment_terms_type": "fixed",
+        "updated_at": "2024-02-02T15:57:33-05:00"
+    },
+    "refunds": [],
+    "shipping_address": {
+        "first_name": "Matthew",
+        "address1": "1812 2nd Avenue",
+        "phone": null,
+        "city": "New York",
+        "zip": "10128",
+        "province": "New York",
+        "country": "United States",
+        "last_name": "Chan",
+        "address2": null,
+        "company": null,
+        "latitude": 40.7826972,
+        "longitude": -73.94794499999999,
+        "name": "Matthew Chan",
+        "country_code": "US",
+        "province_code": "NY"
+    },
+    "shipping_lines": [
+        {
+            "id": 4556269158656,
+            "carrier_identifier": "650f1a14fa979ec5c74d063e968411d4",
+            "code": "Express International",
+            "discounted_price": "72.22",
+            "discounted_price_set": {
+                "shop_money": {
+                    "amount": "72.22",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "54.00",
+                    "currency_code": "USD"
+                }
+            },
+            "phone": null,
+            "price": "72.22",
+            "price_set": {
+                "shop_money": {
+                    "amount": "72.22",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "54.00",
+                    "currency_code": "USD"
+                }
+            },
+            "requested_fulfillment_service_id": null,
+            "source": "shopify",
+            "title": "Express International",
+            "tax_lines": [
+                {
+                    "channel_liable": false,
+                    "price": "2.89",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "2.89",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "2.16",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.04,
+                    "title": "New York State Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "3.25",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "3.25",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "2.43",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.045,
+                    "title": "New York City City Tax"
+                },
+                {
+                    "channel_liable": false,
+                    "price": "0.27",
+                    "price_set": {
+                        "shop_money": {
+                            "amount": "0.27",
+                            "currency_code": "CAD"
+                        },
+                        "presentment_money": {
+                            "amount": "0.20",
+                            "currency_code": "USD"
+                        }
+                    },
+                    "rate": 0.00375,
+                    "title": "Metropolitan Commuter Transportation District"
+                }
+            ],
+            "discount_allocations": []
+        }
+    ]
+}

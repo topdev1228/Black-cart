@@ -1,0 +1,27 @@
+{
+    "data" : {
+        "fulfillment" : {
+            "id" : "gid://shopify/Order/5095450214539",
+            "fulfillmentLineItems" : {
+                "edges": [
+                    {
+                        "node": {
+                            "lineItem" : {
+                                "id": "gid://shopify/LineItem/12878423851147",
+                                "quantity": 1
+                            }
+                        }
+                    },
+                    {
+                        "node": {
+                            "lineItem" : {
+                                "id": "gid://shopify/LineItem/12878423883915",
+                                "quantity": 1
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

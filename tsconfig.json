@@ -1,0 +1,26 @@
+{
+    "include": ["resources/js/*"],
+    "exclude": ["resources/js/*.spec.ts"],
+    "compilerOptions": {
+        "lib": ["DOM", "DOM.Iterable", "ES2019"],
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "jsx": "react-jsx",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "target": "ESNext",
+        "strict": true,
+        "allowJs": true,
+        "checkJs": false,
+        "noImplicitAny": false,
+        "forceConsistentCasingInFileNames": true,
+        "baseUrl": ".",
+        "paths": {
+            "~/*": ["./resources/js/*"]
+        },
+        "types": ["@shopify/app-bridge-types"],
+        "noEmit": true,
+        "skipLibCheck": true,
+    }
+}

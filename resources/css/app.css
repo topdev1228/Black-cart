@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.Polaris-MediaCard__ActionContainer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#launch-button {
+    background: #388e3c;
+    color: white;
+}
+
+.Polaris-MediaCard__Description {
+    white-space: pre-line;
+}

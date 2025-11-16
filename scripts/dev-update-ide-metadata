@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+php artisan ide-helper:generate > /dev/null
+php artisan ide-helper:meta > /dev/null
+php artisan ide-helper:models -WR > /dev/null
+UPDATED=$(git diff --name-only _ide_helper.php .phpstorm.meta.php app/Domain/*/Models | wc -l | sed 's/^ *//')
+if [ $UPDATED -eq 0 ]; then
+  exit 0
+else
+  echo -e "IDE Metadata updated:\n"
+  git status --porcelain=v1 _ide_helper.php .phpstorm.meta.php app/Domain/*/Models | sed 's/^ //'
+  echo -e "\n\`git add\` the updated files to continue\n"
+  exit 1
+fi
+

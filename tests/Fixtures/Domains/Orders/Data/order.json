@@ -1,0 +1,381 @@
+{
+    "id": 5561022087484,
+    "name": "#1007",
+    "note": null,
+    "tags": "",
+    "test": true,
+    "email": "email@email.com",
+    "phone": null,
+    "token": "754051fa96b9723f885530e541bfa625",
+    "app_id": 580111,
+    "number": 7,
+    "refunds": [],
+    "user_id": null,
+    "currency": "CAD",
+    "customer": {
+        "id": 7567396045116,
+        "note": null,
+        "tags": "",
+        "email": "email@email.com",
+        "phone": null,
+        "state": "disabled",
+        "currency": "CAD",
+        "last_name": "Name",
+        "created_at": "2023-11-26T15:42:05-05:00",
+        "first_name": "Test",
+        "tax_exempt": false,
+        "updated_at": "2023-11-26T16:54:11-05:00",
+        "tax_exemptions": [],
+        "verified_email": true,
+        "default_address": {
+            "id": 9768259322172,
+            "zip": "H0H 0H0",
+            "city": "Toronto",
+            "name": "Test Name",
+            "phone": null,
+            "company": null,
+            "country": "Canada",
+            "default": true,
+            "address1": "123 Fake Street",
+            "address2": null,
+            "province": "Ontario",
+            "last_name": "Name",
+            "first_name": "Test",
+            "customer_id": 7567396045116,
+            "country_code": "CA",
+            "country_name": "Canada",
+            "province_code": "ON"
+        },
+        "accepts_marketing": false,
+        "admin_graphql_api_id": "gid://shopify/Customer/7567396045116",
+        "multipass_identifier": null,
+        "sms_marketing_consent": null,
+        "marketing_opt_in_level": null,
+        "email_marketing_consent": {
+            "state": "not_subscribed",
+            "opt_in_level": "single_opt_in",
+            "consent_updated_at": null
+        },
+        "accepts_marketing_updated_at": "2023-11-26T15:42:05-05:00"
+    },
+    "closed_at": null,
+    "confirmed": true,
+    "device_id": null,
+    "po_number": null,
+    "reference": "cbdb8d074f57a20c0fbcead16bcc752c",
+    "tax_lines": [],
+    "total_tax": "0.00",
+    "browser_ip": "184.147.12.178",
+    "cart_token": "c1-0a887f6bb8776cc0f8ec534276feef23",
+    "created_at": "2023-11-26T16:54:11-05:00",
+    "line_items": [
+        {
+            "id": 14402934702396,
+            "sku": "",
+            "name": "Card",
+            "grams": 0,
+            "price": "1.00",
+            "title": "Card",
+            "duties": [],
+            "vendor": "My Store",
+            "taxable": true,
+            "quantity": 1,
+            "gift_card": false,
+            "price_set": {
+                "shop_money": {
+                    "amount": "1.00",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "1.00",
+                    "currency_code": "CAD"
+                }
+            },
+            "tax_lines": [],
+            "product_id": 8877822673212,
+            "properties": [
+                {
+                    "name": "First Name",
+                    "value": "Dav"
+                },
+                {
+                    "name": "Last Name",
+                    "value": "Pilkey"
+                },
+                {
+                    "name": "Question Set",
+                    "value": "GoodTest"
+                }
+            ],
+            "variant_id": 47847681261884,
+            "variant_title": null,
+            "product_exists": true,
+            "total_discount": "0.00",
+            "current_quantity": 1,
+            "attributed_staffs": [],
+            "requires_shipping": true,
+            "fulfillment_status": null,
+            "total_discount_set": {
+                "shop_money": {
+                    "amount": "0.00",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "0.00",
+                    "currency_code": "CAD"
+                }
+            },
+            "fulfillment_service": "manual",
+            "admin_graphql_api_id": "gid://shopify/LineItem/14402934702396",
+            "discount_allocations": [],
+            "fulfillable_quantity": 1,
+            "variant_inventory_management": "shopify"
+        }
+    ],
+    "source_url": null,
+    "tax_exempt": false,
+    "updated_at": "2023-11-26T16:54:12-05:00",
+    "checkout_id": 37132352553276,
+    "location_id": null,
+    "source_name": "web",
+    "total_price": "15.90",
+    "cancelled_at": null,
+    "fulfillments": [],
+    "landing_site": "/",
+    "order_number": 1007,
+    "processed_at": "2023-11-26T16:54:08-05:00",
+    "total_weight": 0,
+    "cancel_reason": null,
+    "contact_email": "email@email.com",
+    "total_tax_set": {
+        "shop_money": {
+            "amount": "0.00",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "CAD"
+        }
+    },
+    "checkout_token": "ed26918e9a53ed37b1dd5af13cc36ae7",
+    "client_details": {
+        "browser_ip": "184.147.12.178",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+        "session_hash": null,
+        "browser_width": null,
+        "browser_height": null,
+        "accept_language": "en-CA"
+    },
+    "discount_codes": [],
+    "referring_site": "",
+    "shipping_lines": [
+        {
+            "id": 4530422513980,
+            "code": "Standard",
+            "phone": null,
+            "price": "14.90",
+            "title": "Standard",
+            "source": "shopify",
+            "price_set": {
+                "shop_money": {
+                    "amount": "14.90",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "14.90",
+                    "currency_code": "CAD"
+                }
+            },
+            "tax_lines": [],
+            "discounted_price": "14.90",
+            "carrier_identifier": "650f1a14fa979ec5c74d063e968411d4",
+            "discount_allocations": [],
+            "discounted_price_set": {
+                "shop_money": {
+                    "amount": "14.90",
+                    "currency_code": "CAD"
+                },
+                "presentment_money": {
+                    "amount": "14.90",
+                    "currency_code": "CAD"
+                }
+            },
+            "requested_fulfillment_service_id": null
+        }
+    ],
+    "subtotal_price": "1.00",
+    "taxes_included": false,
+    "billing_address": {
+        "zip": "H0H 0H0",
+        "city": "Toronto",
+        "name": "Test Name",
+        "phone": null,
+        "company": null,
+        "country": "Canada",
+        "address1": "123 Fake Street",
+        "address2": null,
+        "latitude": 43.6381606,
+        "province": "Ontario",
+        "last_name": "Name",
+        "longitude": -79.4155672,
+        "first_name": "Test",
+        "country_code": "CA",
+        "province_code": "ON"
+    },
+    "customer_locale": "en-CA",
+    "estimated_taxes": false,
+    "note_attributes": [],
+    "total_discounts": "0.00",
+    "total_price_set": {
+        "shop_money": {
+            "amount": "15.90",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "15.90",
+            "currency_code": "CAD"
+        }
+    },
+    "financial_status": "paid",
+    "landing_site_ref": null,
+    "order_status_url": "https://0046f4-3.myshopify.com/84256686396/orders/754051fa96b9723f885530e541bfa625/authenticate?key=02deef6d6f346124c62f2e0461f988e4",
+    "shipping_address": {
+        "zip": "H0H 0H0",
+        "city": "Toronto",
+        "name": "Test Name",
+        "phone": null,
+        "company": null,
+        "country": "Canada",
+        "address1": "123 Fake Street",
+        "address2": null,
+        "latitude": 43.6381606,
+        "province": "Ontario",
+        "last_name": "Name",
+        "longitude": -79.4155672,
+        "first_name": "Test",
+        "country_code": "CA",
+        "province_code": "ON"
+    },
+    "current_total_tax": "0.00",
+    "source_identifier": "cbdb8d074f57a20c0fbcead16bcc752c",
+    "total_outstanding": "0.00",
+    "fulfillment_status": null,
+    "subtotal_price_set": {
+        "shop_money": {
+            "amount": "1.00",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "1.00",
+            "currency_code": "CAD"
+        }
+    },
+    "total_tip_received": "0.00",
+    "confirmation_number": "2P7L8MEK0",
+    "current_total_price": "15.90",
+    "total_discounts_set": {
+        "shop_money": {
+            "amount": "0.00",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "CAD"
+        }
+    },
+    "admin_graphql_api_id": "gid://shopify/Order/5561022087484",
+    "presentment_currency": "CAD",
+    "current_total_tax_set": {
+        "shop_money": {
+            "amount": "0.00",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "CAD"
+        }
+    },
+    "discount_applications": [],
+    "payment_gateway_names": [
+        "shopify_payments"
+    ],
+    "current_subtotal_price": "1.00",
+    "total_line_items_price": "1.00",
+    "buyer_accepts_marketing": false,
+    "current_total_discounts": "0.00",
+    "current_total_price_set": {
+        "shop_money": {
+            "amount": "15.90",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "15.90",
+            "currency_code": "CAD"
+        }
+    },
+    "current_total_duties_set": null,
+    "total_shipping_price_set": {
+        "shop_money": {
+            "amount": "14.90",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "14.90",
+            "currency_code": "CAD"
+        }
+    },
+    "merchant_of_record_app_id": null,
+    "original_total_duties_set": null,
+    "current_subtotal_price_set": {
+        "shop_money": {
+            "amount": "1.00",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "1.00",
+            "currency_code": "CAD"
+        }
+    },
+    "total_line_items_price_set": {
+        "shop_money": {
+            "amount": "1.00",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "1.00",
+            "currency_code": "CAD"
+        }
+    },
+    "current_total_discounts_set": {
+        "shop_money": {
+            "amount": "0.00",
+            "currency_code": "CAD"
+        },
+        "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "CAD"
+        }
+    },
+    "current_total_additional_fees_set": null,
+    "original_total_additional_fees_set": null,
+    "payment_terms": {
+        "id": 8704622731,
+        "created_at": "2024-01-10T17:39:25-05:00",
+        "due_in_days": null,
+        "payment_schedules": [
+            {
+                "id": 10046963851,
+                "amount": "38.58",
+                "currency": "CAD",
+                "issued_at": null,
+                "due_at": "2024-01-15T17:37:57-05:00",
+                "completed_at": null,
+                "created_at": "2024-01-10T17:39:25-05:00",
+                "updated_at": "2024-01-10T17:39:25-05:00"
+            }
+        ],
+        "payment_terms_name": "Fixed",
+        "payment_terms_type": "fixed",
+        "updated_at": "2024-01-10T17:39:25-05:00"
+    }
+}

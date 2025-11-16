@@ -1,0 +1,41 @@
+<?php declare(strict_types=1);
+
+namespace App\Domain\Orders\GraphQL\Shopify\Stable\Types;
+
+class MediaUserErrorCode
+{
+    public const BLANK = 'BLANK';
+    public const CANNOT_SPECIFY_SOURCE_AND_VERSION_ID = 'CANNOT_SPECIFY_SOURCE_AND_VERSION_ID';
+    public const INVALID = 'INVALID';
+    public const INVALID_MEDIA_TYPE = 'INVALID_MEDIA_TYPE';
+    public const MAXIMUM_VARIANT_MEDIA_PAIRS_EXCEEDED = 'MAXIMUM_VARIANT_MEDIA_PAIRS_EXCEEDED';
+    public const MEDIA_CANNOT_BE_MODIFIED = 'MEDIA_CANNOT_BE_MODIFIED';
+    public const MEDIA_DOES_NOT_EXIST = 'MEDIA_DOES_NOT_EXIST';
+    public const MEDIA_DOES_NOT_EXIST_ON_PRODUCT = 'MEDIA_DOES_NOT_EXIST_ON_PRODUCT';
+    public const MEDIA_IS_NOT_ATTACHED_TO_VARIANT = 'MEDIA_IS_NOT_ATTACHED_TO_VARIANT';
+    public const MEDIA_VERSION_DOES_NOT_EXIST = 'MEDIA_VERSION_DOES_NOT_EXIST';
+    public const MISSING_ARGUMENTS = 'MISSING_ARGUMENTS';
+    public const MODEL3D_THROTTLE_EXCEEDED = 'MODEL3D_THROTTLE_EXCEEDED';
+    public const MODEL3D_VALIDATION_ERROR = 'MODEL3D_VALIDATION_ERROR';
+    public const NON_READY_MEDIA = 'NON_READY_MEDIA';
+    public const PRODUCT_DOES_NOT_EXIST = 'PRODUCT_DOES_NOT_EXIST';
+    public const PRODUCT_MEDIA_LIMIT_EXCEEDED = 'PRODUCT_MEDIA_LIMIT_EXCEEDED';
+    public const PRODUCT_SUSPENDED = 'PRODUCT_SUSPENDED';
+    public const PRODUCT_VARIANT_ALREADY_HAS_MEDIA = 'PRODUCT_VARIANT_ALREADY_HAS_MEDIA';
+    public const PRODUCT_VARIANT_DOES_NOT_EXIST_ON_PRODUCT = 'PRODUCT_VARIANT_DOES_NOT_EXIST_ON_PRODUCT';
+    public const PRODUCT_VARIANT_SPECIFIED_MULTIPLE_TIMES = 'PRODUCT_VARIANT_SPECIFIED_MULTIPLE_TIMES';
+    public const SHOP_MEDIA_LIMIT_EXCEEDED = 'SHOP_MEDIA_LIMIT_EXCEEDED';
+    public const TOO_MANY_MEDIA_PER_INPUT_PAIR = 'TOO_MANY_MEDIA_PER_INPUT_PAIR';
+    public const VIDEO_THROTTLE_EXCEEDED = 'VIDEO_THROTTLE_EXCEEDED';
+    public const VIDEO_VALIDATION_ERROR = 'VIDEO_VALIDATION_ERROR';
+
+    public static function endpoint(): string
+    {
+        return 'shopify-orders-2024-01';
+    }
+
+    public static function config(): string
+    {
+        return \Safe\realpath(__DIR__ . '/../../../../../../../sailor.php');
+    }
+}

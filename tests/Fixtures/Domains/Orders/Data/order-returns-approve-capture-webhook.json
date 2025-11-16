@@ -1,0 +1,12 @@
+{
+    "id": 123456,
+    "adminGraphqlApiId": "120560818172775260",
+    "status": "approved",
+    "name": "Return Order 1",
+    "order": { 
+        "id": 123456,
+        "adminGraphqlApiId": "5456456465"
+    },
+    "totalReturnLineItems": 2,
+    "returnLineItems": []
+}

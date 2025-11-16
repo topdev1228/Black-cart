@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -xe
+
+if [ -f "${APP_DIR}/composer.json" ]; then
+  echo "Running composer..."
+
+  # Run Composer.
+  usermod --shell /bin/bash www-data
+
+  if [ ! -z "${GITHUB_TOKEN}" ]; then
+      set +x
+      echo "Setting GitHub Token"
+      su -m www-data -pc "/usr/local/bin/php -d auto_prepend_file='' /usr/local/bin/composer \
+      config github-oauth.github.com ${GITHUB_TOKEN}"
+      set -x
+  fi
+
+  if [ -z "${COMPOSER_FLAGS}" ]; then
+      COMPOSER_FLAGS='--no-dev --prefer-dist --no-cache'
+  fi
+
+  cd ${APP_DIR} && \
+  mkdir -p vendor && \
+  chown www-data:www-data vendor && \
+  su -m www-data -pc "/usr/local/bin/php -d auto_prepend_file='' /usr/local/bin/composer \
+    install \
+    --optimize-autoloader \
+    --no-interaction \
+    --no-ansi \
+    --no-progress \
+    ${COMPOSER_FLAGS}" # && \
+fi
